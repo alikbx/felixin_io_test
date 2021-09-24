@@ -2,10 +2,12 @@ package com.felixin.test.service;
 
 import com.felixin.test.domain.FelixinNumber;
 import com.felixin.test.repository.NumberRepository;
+import javassist.tools.web.BadHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -29,6 +31,14 @@ public class NumberService {
 
     public List<FelixinNumber> getRandomNumbers() {
         return numberRepository.findAll();
+    }
+
+    public List<FelixinNumber> checkNumber(FelixinNumber felixinNumber) throws BadHttpRequest {
+        if (felixinNumber.getNumber() <= END && felixinNumber.getNumber() >= START) {
+            return Collections.emptyList();
+        } else {
+            throw new BadHttpRequest();
+        }
     }
 
 }
