@@ -1,13 +1,41 @@
 package com.felixin.test;
 
+import com.felixin.test.domain.FelixinNumber;
+import com.felixin.test.service.NumberService;
+import com.felixin.test.service.dtos.MiddleResponseDTO;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+import javax.transaction.Transactional;
+import java.util.List;
+
+@SpringBootTest(classes = TestApplication.class)
+@Transactional
 class TestApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    public static final int NUMBER = 5000001;
+    @Autowired
+    NumberService numberService;
+
+    @Test
+    @DisplayName("Generate 1000 random number")
+    void testGenerateNumber() {
+        numberService.createRandomNumber();
+        List<FelixinNumber> randomNumbers = numberService.getRandomNumbers();
+        Assertions.assertEquals(1000, randomNumbers.size());
+    }
+
+    @Test
+    @DisplayName("Find bigger and smaller Number")
+    void testCheckNumber() {
+        MiddleResponseDTO middleResponseDTO = numberService.checkNumber(new FelixinNumber().setNumber(NUMBER));
+        Assertions.assertEquals(10, middleResponseDTO.getBigger().size());
+        Assertions.assertEquals(10, middleResponseDTO.getSmaller().size());
+        Assertions.assertTrue(middleResponseDTO.getSmaller().stream().findFirst().get().getNumber() < NUMBER);
+        Assertions.assertTrue(middleResponseDTO.getBigger().stream().findFirst().get().getNumber() > NUMBER);
+    }
 
 }
