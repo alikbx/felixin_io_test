@@ -1,7 +1,7 @@
 package com.felixin.test.web.rest;
 
-import com.felixin.test.security.TokenManager;
 import com.felixin.test.security.JwtUserDetailsService;
+import com.felixin.test.security.TokenManager;
 import com.felixin.test.security.model.JwtRequestModel;
 import com.felixin.test.security.model.JwtResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class JwtController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponseModel> createToken(@RequestBody JwtRequestModel
-                                                request) throws Exception {
+                                                                request) throws Exception {
         try {
             authenticationManager.authenticate(
                     new

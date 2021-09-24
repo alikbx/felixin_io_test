@@ -1,10 +1,8 @@
 package com.felixin.test.web.rest;
 
 import com.felixin.test.domain.FelixinNumber;
-import com.felixin.test.security.model.JwtResponseModel;
 import com.felixin.test.service.NumberService;
 import com.felixin.test.service.dtos.MiddleResponseDTO;
-import javassist.tools.web.BadHttpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
