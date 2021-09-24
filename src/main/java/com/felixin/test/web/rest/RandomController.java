@@ -29,7 +29,7 @@ public class RandomController {
     }
 
     @PostMapping("/user/check-number")
-    public ResponseEntity<MiddleResponseDTO> getRandomNumbers(@RequestBody FelixinNumber felixinNumber) throws RuntimeException {
+    public ResponseEntity<MiddleResponseDTO> getRandomNumbers(@RequestBody FelixinNumber felixinNumber) {
         return ResponseEntity.ok(numberService.checkNumber(felixinNumber));
     }
 }

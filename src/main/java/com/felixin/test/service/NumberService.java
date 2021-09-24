@@ -3,6 +3,7 @@ package com.felixin.test.service;
 import com.felixin.test.domain.FelixinNumber;
 import com.felixin.test.repository.NumberRepository;
 import com.felixin.test.service.dtos.MiddleResponseDTO;
+import com.felixin.test.web.rest.exception.OutOfBoundNumberException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,13 +50,13 @@ public class NumberService {
      * @return MiddleResponseDTO contain bigger and smaller list
      * @throws RuntimeException
      */
-    public MiddleResponseDTO checkNumber(FelixinNumber felixinNumber) throws RuntimeException {
+    public MiddleResponseDTO checkNumber(FelixinNumber felixinNumber) {
         if (felixinNumber.getNumber() <= END && felixinNumber.getNumber() >= START) {
             return new MiddleResponseDTO().setNumbers(felixinNumber.getNumber())
                     .setBigger(numberRepository.findTop10ByNumberGreaterThanOrderByNumberAsc(felixinNumber.getNumber()))
                     .setSmaller(numberRepository.findTop10ByNumberLessThanOrderByNumberDesc(felixinNumber.getNumber()));
         } else {
-            throw new RuntimeException();
+            throw new OutOfBoundNumberException("The number is not in the range");
         }
     }
 
