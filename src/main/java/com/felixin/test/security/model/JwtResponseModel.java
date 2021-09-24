@@ -1,4 +1,4 @@
-package com.felixin.test.model;
+package com.felixin.test.security.model;
 
 import java.io.Serializable;
 public class JwtResponseModel implements Serializable {

@@ -1,9 +1,9 @@
 package com.felixin.test.web.rest;
 
 import com.felixin.test.security.TokenManager;
-import com.felixin.test.model.JwtRequestModel;
-import com.felixin.test.model.JwtResponseModel;
 import com.felixin.test.security.JwtUserDetailsService;
+import com.felixin.test.security.model.JwtRequestModel;
+import com.felixin.test.security.model.JwtResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
