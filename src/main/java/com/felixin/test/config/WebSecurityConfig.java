@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-//                .antMatchers("/admin/generate/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/admin/generate/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
