@@ -2,12 +2,11 @@ package com.felixin.test.service;
 
 import com.felixin.test.domain.FelixinNumber;
 import com.felixin.test.repository.NumberRepository;
-import javassist.tools.web.BadHttpRequest;
+import com.felixin.test.service.dtos.MiddleResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -33,11 +32,13 @@ public class NumberService {
         return numberRepository.findAll();
     }
 
-    public List<FelixinNumber> checkNumber(FelixinNumber felixinNumber) throws BadHttpRequest {
+    public MiddleResponseDTO checkNumber(FelixinNumber felixinNumber) throws RuntimeException {
         if (felixinNumber.getNumber() <= END && felixinNumber.getNumber() >= START) {
-            return Collections.emptyList();
+            return new MiddleResponseDTO().setNumbers(felixinNumber.getNumber())
+                    .setBigger(numberRepository.findTop10ByNumberGreaterThanOrderByNumberAsc(felixinNumber.getNumber()))
+                    .setSmaller(numberRepository.findTop10ByNumberLessThanOrderByNumberDesc(felixinNumber.getNumber()));
         } else {
-            throw new BadHttpRequest();
+            throw new RuntimeException();
         }
     }
 

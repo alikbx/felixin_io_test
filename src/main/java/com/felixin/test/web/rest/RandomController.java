@@ -3,6 +3,7 @@ package com.felixin.test.web.rest;
 import com.felixin.test.domain.FelixinNumber;
 import com.felixin.test.security.model.JwtResponseModel;
 import com.felixin.test.service.NumberService;
+import com.felixin.test.service.dtos.MiddleResponseDTO;
 import javassist.tools.web.BadHttpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class RandomController {
     }
 
     @PostMapping("/user/check-number")
-    public ResponseEntity<List<FelixinNumber>> getRandomNumbers(@RequestBody FelixinNumber felixinNumber) throws BadHttpRequest {
+    public ResponseEntity<MiddleResponseDTO> getRandomNumbers(@RequestBody FelixinNumber felixinNumber) throws RuntimeException {
         return ResponseEntity.ok(numberService.checkNumber(felixinNumber));
     }
 }
