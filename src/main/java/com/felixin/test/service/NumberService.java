@@ -21,6 +21,10 @@ public class NumberService {
     @Autowired
     NumberRepository numberRepository;
 
+    /**
+     * first delete all records in the database,then
+     * generates a thousand random numbers in the start and end intervals
+     */
     public void createRandomNumber() {
         numberRepository.deleteAll();
         Random r = new Random();
@@ -28,10 +32,23 @@ public class NumberService {
         Arrays.stream(randomNumbers).forEach(value -> numberRepository.save(new FelixinNumber().setNumber(value)));
     }
 
+    /**
+     * Retrieve all records in the database
+     *
+     * @return List of numbers
+     */
     public List<FelixinNumber> getRandomNumbers() {
         return numberRepository.findAll();
     }
 
+    /**
+     * This function first checks the input number that is between the start and end intervals,
+     * then searches the database and finds 10 numbers smaller than this number and 10 numbers larger than this number.
+     *
+     * @param felixinNumber middle number
+     * @return MiddleResponseDTO contain bigger and smaller list
+     * @throws RuntimeException
+     */
     public MiddleResponseDTO checkNumber(FelixinNumber felixinNumber) throws RuntimeException {
         if (felixinNumber.getNumber() <= END && felixinNumber.getNumber() >= START) {
             return new MiddleResponseDTO().setNumbers(felixinNumber.getNumber())
